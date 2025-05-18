@@ -1,0 +1,50 @@
+<ion-header class="ion-no-border fondo" translucent mode="ios" >
+
+  <ion-toolbar color="dark">
+    <ion-title class="text-big" text-capitalize>BIENVENIDO</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="fondo">
+
+  <ion-card class="contenido">
+
+    <ion-card-header translucent>
+      <ion-card-title class="ion-text-center text ion-margin-top">
+        <h1>RELEVAMIENTO VISUAL</h1>
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content mode="ios" class="home">
+      <div class="business-icon">
+        <img src="../../../assets/img/icon.png" width="309" height="400">
+      </div>
+      <ion-button class="ion-activatable ripple-parent text-big" 
+                  expand="block" size="large" 
+                  (click)="presentAlertPrompt()">
+        Iniciar sesión
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="dark">
+    <ion-segment (ionChange)="iniciarSesion($event)" mode="ios" color="dark" class="accesos" [value]="rol">
+      <ion-segment-button value="Admin">
+        <ion-label>Admin</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Tester">
+        <ion-label>Tester</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Usuario">
+        <ion-label>Usuario</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  
+  </ion-toolbar>
+</ion-footer>
