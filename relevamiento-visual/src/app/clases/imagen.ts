@@ -1,11 +1,11 @@
 export class Imagen
 {
-    id: string = '';
-    url: string = '';
-    base64: string = '';
-    usuario: string = '';
-    nombreUsuario: string = '';
-    fecha: string = '';
+    id: string ;
+    url: string;
+    base64: string;
+    usuario: string;
+    nombreUsuario: string;
+    fecha: string;
     tipo: TipoImagen = TipoImagen.NEGATIVA
     votos: any[] = [];
 
