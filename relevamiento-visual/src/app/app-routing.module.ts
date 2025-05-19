@@ -13,11 +13,11 @@ const routes: Routes = [
   },
   {
     path: 'feas',
-    loadChildren: () => import('./pages/feas/feas.module').then( m => m.FeasPageModule)
+    loadChildren: () => import('./pages/feas/feas.module').then(m => m.FeasPageModule)
   },
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
   },
   {
     path: 'registro',

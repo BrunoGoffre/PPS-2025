@@ -13,6 +13,7 @@ import { TarjetasComponent } from './tarjetas/tarjetas.component';
 
 import { GraficoBarrasComponent } from './widgets/grafico-barras/grafico-barras.component';
 import { GraficoTortaComponent } from './widgets/grafico-torta/grafico-torta.component';
+import { ChartModule } from 'angular-highcharts';
 
 
 
@@ -28,8 +29,8 @@ import { GraficoTortaComponent } from './widgets/grafico-torta/grafico-torta.com
   imports: [
     CommonModule,
     IonicModule,
-    SwiperModule 
-    // ChartModule
+    SwiperModule,
+    ChartModule
     
   ],
   exports: [

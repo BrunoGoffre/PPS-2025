@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { BonitasPageRoutingModule } from './bonitas-routing.module';
 
 import { BonitasPage } from './bonitas.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    BonitasPageRoutingModule
+    BonitasPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [BonitasPage]
 })

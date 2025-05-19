@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { GraficosPageRoutingModule } from './graficos-routing.module';
 
 import { GraficosPage } from './graficos.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    GraficosPageRoutingModule
+    GraficosPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [GraficosPage]
 })

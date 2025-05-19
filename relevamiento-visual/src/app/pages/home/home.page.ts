@@ -4,12 +4,12 @@ import { AlertController, ToastController } from '@ionic/angular';
 import { Usuario } from 'src/app/clases/usuario';
 import { DataService } from 'src/app/services/data.service';
 import { environment } from 'src/environments/environment';
-
+import { Storage } from '@ionic/storage-angular';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
-  standalone: false
+  standalone: false,
 })
 export class HomePage implements OnInit {
   perfiles = environment.usuario;
@@ -21,12 +21,21 @@ export class HomePage implements OnInit {
   constructor(public alertCtrl: AlertController,
     private dataService: DataService,
     public toastController: ToastController,
-    private router: Router) {
+    private router: Router,
+    private storage: Storage
+
+  ) {
   }
 
   ngOnInit() {
     this.rol = '';
-
+    this.storage.remove('usuario')
+    this.storage.clear()
+    this.storage.get('usuario')?.then((result) => {
+      result?.forEach((key: any) => {
+        console.log('keys: ' + key)
+      })
+    })
   }
 
   async presentAlertPrompt(value?: any) {
@@ -75,10 +84,14 @@ export class HomePage implements OnInit {
               this.usuario.email = data.mail;
               this.usuario.pass = data.clave;
               this.dataService.login(this.usuario).then(() => {
+                console.log("Entre aca post login")
                 this.presentToast("Sesión iniciada.");
                 this.router.navigate(['/menu']);
               }).
-                catch(err => this.presentToast('Credenciales inválidas', true));
+                catch(err => {
+                  console.log(err)
+                  this.presentToast('Credenciales inválidas', true)
+                });
             }
             }
         },
@@ -135,6 +148,10 @@ export class HomePage implements OnInit {
 
   isPassword(password: any) {
     return password.length >= 6;
+  }
+
+  limpiarLocal(){
+    this.dataService.limpiarLocal();
   }
 
 

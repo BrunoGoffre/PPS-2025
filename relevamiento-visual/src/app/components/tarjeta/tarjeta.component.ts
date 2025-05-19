@@ -26,10 +26,14 @@ export class TarjetaComponent implements OnInit {
 
   votar()
   {
-    if(!this.imagen.votos.includes(this.usuario.id))
+    if(!this.imagen.votos || !(this.imagen.votos && this.imagen.votos.find((voto) => voto.userId == this.usuario.id)))
     {
-      this.imagen.votos.push(this.usuario.id);
-      this.imagenService.actualizar(this.imagen);
+      const voto = {
+        userId: this.usuario.id,
+        fecha: new Date().toUTCString(),
+      }
+      this.imagen.votos.push(voto);
+      this.imagenService.actualizarOCrear(this.imagen);
 
     }
   }

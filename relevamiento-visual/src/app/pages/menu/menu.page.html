@@ -1,13 +1,34 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border fondo" translucent mode="ios" style="padding-top: 45px;">
+
   <ion-toolbar>
-    <ion-title>menu</ion-title>
-  </ion-toolbar>
+
+      <ion-buttons slot="start">
+        <ion-back-button text="Cerrar Sesión" style="font-weight: 1px;" defaultHref="/home"></ion-back-button>
+      </ion-buttons>
+
+      <ion-buttons slot="end">
+        <ion-button size="large" (click)="navegar('/graficos')">
+          <ion-icon slot="icon-only" name="bar-chart-outline" size="large"></ion-icon>
+        </ion-button>
+        <ion-button size="large" (click)="navegar('/listado')">
+          <ion-icon slot="icon-only" name="images-outline" size="large"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+
+
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="fondo" [fullscreen]="true">
+
+  <ion-grid fixed>
+    <ion-row class="contenido">
+      <ion-col size="12" *ngFor="let ruta of rutas" class="ion-margin-top">
+        <ion-img id="img-boton" [src]="ruta.src" (click)="navegar(ruta.ruta)"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
 </ion-content>
+

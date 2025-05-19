@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-graficos',
@@ -8,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GraficosPage implements OnInit {
 
-  constructor() { }
+  constructor(private loadingController: LoadingController) { }
 
-  ngOnInit() {
+  ngOnInit() 
+  {
+    this.presentLoading("Creando gráficos...");
+  }
+
+  async presentLoading(message: any) {
+    const loading = await this.loadingController.create({
+      message,
+      duration: 1000,
+      spinner: 'bubbles'
+    });
+    await loading.present();
   }
 
 }

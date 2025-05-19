@@ -1,13 +1,25 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>feas</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header titulo="Feas"></app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">feas</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="fondo">
+
+  <ion-grid fixed >
+
+    <ion-row > 
+      
+      <app-tarjetas [imagenes]="imagenes"></app-tarjetas>
+
+    </ion-row>
+   
+  
+  </ion-grid>
+
 </ion-content>
+<ion-footer style="padding-bottom: 35px;">
+  <ion-toolbar class="contenido">
+        <ion-tab-button  class="contenido" (click)="subirFoto()" fill="clear" color="primary" expand="full">
+          <ion-icon name="camera-sharp"></ion-icon>
+          <ion-label>Sacar foto</ion-label>
+        </ion-tab-button>
+
+  </ion-toolbar>
+</ion-footer>

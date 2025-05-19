@@ -1,13 +1,13 @@
 export const environment = {
   production: true,
   firebaseConfig: {
-    apiKey: "AIzaSyBlpa_KNpCM2gW3x7CU92prqCm1P6UeTcc",
-    authDomain: "tps-pps.firebaseapp.com",
-    databaseURL: "https://tps-pps-default-rtdb.firebaseio.com",
-    projectId: "tps-pps",
-    storageBucket: "tps-pps.appspot.com",
-    messagingSenderId: "370063651241",
-    appId: "1:370063651241:web:648d9dd8a8f0d6a71ad4b8"
+    apiKey: 'AIzaSyClMeGLX-lZF_lfIM-eIfgGIUTqrZJMrig',
+    authDomain: 'explicacionde-69955.firebaseapp.com',
+    databaseURL: 'https://explicacionde-69955-default-rtdb.firebaseio.com',
+    projectId: 'explicacionde-69955',
+    storageBucket: 'explicacionde-69955.appspot.com',
+    messagingSenderId: '729589697558',
+    appId: '1:729589697558:web:fac5d632b92b4677eab937',
   },
   usuario: {
     admin: {

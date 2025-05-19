@@ -1,19 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../clases/usuario';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { Firestore, collection, doc, setDoc, updateDoc, deleteDoc, docData, CollectionReference, DocumentData, collectionData  } from '@angular/fire/firestore';
 import { Storage } from '@ionic/storage-angular';
+import { Observable, from, firstValueFrom } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+  private usuariosCollection: CollectionReference<DocumentData>;
 
   constructor(
     private firebaseAuth: AngularFireAuth,
-    private db: AngularFireDatabase,
+    private firestore: Firestore,
     private storage: Storage
-  ) {}
+  ) {
+    this.storage.create();
+    this.usuariosCollection = collection(this.firestore, 'usuarios');
+  }
 
   login(usuario: Usuario): Promise<any> {
     return new Promise<any>((resolve, reject) => {
@@ -54,61 +60,50 @@ export class DataService {
     });
   }
 
-  getUserDetail() {
-    return this.firebaseAuth.currentUser;
+  getUserDetail(): Observable<firebase.default.User | null> {
+    return this.firebaseAuth.authState;
   }
 
   crear(usuario: Usuario): Promise<void> {
-    if (!usuario.id) return Promise.reject('ID de usuario no definido');
-    return this.db.object(`usuarios/${usuario.id}`).set(usuario);
+    if (!usuario.id) {
+      return Promise.reject('ID de usuario no definido');
+    }
+    const userDocRef = doc(this.usuariosCollection, usuario.id);
+    return setDoc(userDocRef, { ...usuario });
   }
 
   actualizar(usuario: Usuario): Promise<void> {
-    if (!usuario.id) return Promise.reject('ID de usuario no definido');
-    return this.db.object(`usuarios/${usuario.id}`).update(usuario)
+    if (!usuario.id) {
+      return Promise.reject('ID de usuario no definido');
+    }
+    console.log('id de usuario a actualizar: ' + usuario.imagenes)
+    const userDocRef = doc(this.usuariosCollection, usuario.id);
+    console.log('imagenes de usuario a actualizar: ' + usuario.imagenes)
+    return setDoc(userDocRef, { ...usuario }, {merge: true})
       .then(() => console.info("Actualización exitosa"))
-      .catch(() => console.info("No se pudo actualizar"));
+      .catch((error) => console.error("No se pudo actualizar", error));
   }
 
   borrar(id: string): Promise<void> {
-    return this.db.object(`usuarios/${id}`).remove()
+    const userDocRef = doc(this.usuariosCollection, id);
+    return deleteDoc(userDocRef)
       .then(() => console.info("Usuario eliminado"))
-      .catch(() => console.info("No se pudo realizar la baja."));
+      .catch((error) => console.error("No se pudo realizar la baja.", error));
   }
 
   guardarLocal(usuario: Usuario): Promise<void> {
-    return new Promise((resolve, reject) => {
-      if (!usuario.id) {
-        reject('ID de usuario no definido');
-        return;
-      }
-
-      this.db.object(`usuarios/${usuario.id}`).valueChanges().subscribe(
-        (data) => {
-          this.storage.set('usuario', data).then(() => resolve());
-        },
-        (error) => reject(error)
-      );
-    });
+    return this.storage.set('usuario', usuario);
+  }
+  
+  limpiarLocal(){
+    return this.storage.clear()
   }
 
-  obtenerLocal(): Promise<Usuario> {
+  obtenerLocal(): Promise<Usuario | null> {
     return this.storage.get('usuario');
   }
 
-  leer(): Promise<Usuario[]> {
-    return new Promise((resolve) => {
-      this.db.list('usuarios').snapshotChanges().subscribe(snapshot => {
-        const usuarios: Usuario[] = [];
-
-        snapshot.forEach(child => {
-          const data: any = child.payload.val();
-          const key = child.payload.key;
-          usuarios.push(Usuario.CrearUsuario(key || '', data.nombre, data.email, data.imagenes, data.rol));
-        });
-
-        resolve(usuarios);
-      });
-    });
+  leer(): Observable<Usuario[]> {
+    return collectionData(this.usuariosCollection, { idField: 'id' }) as Observable<Usuario[]>;
   }
 }

@@ -1,25 +1,27 @@
 import { Injectable } from '@angular/core';
-import { ToastController } from '@ionic/angular';
 import { Imagen, TipoImagen } from '../clases/imagen';
-import { Usuario } from '../clases/usuario';
-import { Camera, CameraResultType } from '@capacitor/camera';
-import { Filesystem } from '@capacitor/filesystem';
-
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { v4 as uuidv4 } from 'uuid';
 import {
-  Storage,
+  getStorage,
   ref,
   uploadString,
   getDownloadURL,
-} from '@angular/fire/storage';
-
+} from 'firebase/storage';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import {
-  Database,
-  ref as dbRef,
-  push,
-  update,
-  remove,
-  onValue,
-} from '@angular/fire/database';
+  Firestore,
+  collection,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  getDocs,
+  getDoc,
+  setDoc,
+} from '@angular/fire/firestore';
+import { ToastController } from '@ionic/angular';
+import { Usuario } from '../clases/usuario';
 
 @Injectable({
   providedIn: 'root',
@@ -31,158 +33,147 @@ export class ImagenService {
   public static imagenes: Imagen[] = [];
 
   constructor(
-    private storage: Storage,
-    private database: Database,
-    private toastController: ToastController
+    private storage: AngularFireStorage,
+    private toastController: ToastController,
+    private firestore: Firestore
   ) {}
-
-  async subirVariasFotos(usuario: Usuario, tipo: TipoImagen): Promise<Imagen[]> {
-    const carpeta = tipo === TipoImagen.POSITIVA ? 'bonitas' : 'feas';
-    const imagenes: Imagen[] = [];
-
-    try {
-      const resp = await Camera.pickImages({ quality: 90, limit: 2 });
-
-      for (const photo of resp.photos) {
-        const file = await Filesystem.readFile({ path: photo.path as string });
-
-        const imagen = new Imagen();
-        imagen.base64 = file.data as string;
-        imagen.fecha = new Date().toUTCString();
-        imagen.usuario = usuario.id;
-        imagen.nombreUsuario = usuario.nombre;
-        imagen.tipo = tipo;
-        imagen.votos = [];
-
-        const newRef = await push(dbRef(this.database, 'imagenes'), imagen);
-        imagen.id = newRef.key!;
-
-        const imgRef = ref(this.storage, `${carpeta}/${imagen.id}`);
-        await uploadString(imgRef, imagen.base64, 'base64', {
-          contentType: 'image/jpeg',
-          customMetadata: {
-            user: imagen.usuario,
-            userName: imagen.nombreUsuario,
-            date: imagen.fecha,
-            puntaje: imagen.votos.length.toString(),
-          },
-        });
-
-        imagen.url = await getDownloadURL(imgRef);
-        await update(dbRef(this.database, `imagenes/${imagen.id}`), imagen);
-
-        imagenes.push(imagen);
-
-        if (tipo === TipoImagen.POSITIVA) ImagenService.fotosBonitas.push(imagen);
-        else ImagenService.fotosFeas.push(imagen);
-      }
-    } catch (err: any) {
-      this.presentToast(err.message || 'Error al subir imagen');
-    }
-
-    return imagenes;
-  }
 
   async sacarFoto(usuario: Usuario, tipo: TipoImagen): Promise<Imagen> {
     const imagen = new Imagen();
-    const carpeta = tipo === TipoImagen.POSITIVA ? 'bonitas' : 'feas';
+    let carpeta = '';
 
     try {
-      const photo = await Camera.getPhoto({
+      const imageData = await Camera.getPhoto({
         quality: 90,
-        allowEditing: false,
         resultType: CameraResultType.Base64,
-        promptLabelHeader: 'Seleccione una opción',
-        promptLabelPhoto: 'Galería',
-        promptLabelPicture: 'Cámara',
+        correctOrientation: true,
+        source: CameraSource.Prompt,
+        promptLabelHeader: 'Subir foto',
+        promptLabelCancel: 'Cancelar',
+        promptLabelPhoto: 'Subir desde galería',
+        promptLabelPicture: 'Nueva foto',
       });
-
-      imagen.base64 = photo.base64String!;
+      imagen.id = uuidv4();
+      imagen.base64 = imageData.base64String || '';
       imagen.fecha = new Date().toUTCString();
       imagen.usuario = usuario.id;
       imagen.nombreUsuario = usuario.nombre;
       imagen.tipo = tipo;
       imagen.votos = [];
 
-      const newRef = await push(dbRef(this.database, 'imagenes'), imagen);
-      imagen.id = newRef.key!;
+      carpeta = tipo === TipoImagen.POSITIVA ? 'bonitas' : 'feas';
 
-      const imgRef = ref(this.storage, `${carpeta}/${imagen.id}`);
-      await uploadString(imgRef, imagen.base64, 'base64', {
-        contentType: 'image/jpeg',
-        customMetadata: {
-          user: imagen.usuario,
-          userName: imagen.nombreUsuario,
-          date: imagen.fecha,
-          puntaje: imagen.votos.length.toString(),
-        },
-      });
+      const storageRef  = await this.guardarImagen(imagen, carpeta);
+      imagen.url = await getDownloadURL(storageRef);
 
-      imagen.url = await getDownloadURL(imgRef);
-      await update(dbRef(this.database, `imagenes/${imagen.id}`), imagen);
-    } catch (error: any) {
-      this.presentToast(error.message || 'Error al sacar la foto');
+      console.log('url: ' + imagen.url);
+      await this.actualizarOCrear(imagen);
+
+      if (tipo === TipoImagen.POSITIVA) {
+        ImagenService.fotosBonitas.push(imagen);
+      } else {
+        ImagenService.fotosFeas.push(imagen);
+      }
+    } catch (error) {
+      console.log('error creando: ' + error);
+      this.presentToast('Por favor suba o seleccione una foto');
     }
 
     return imagen;
   }
 
-  public async descargarImagen(carpeta: string, usuario: string) {
-    const imgRef = ref(this.storage, `${carpeta}/${usuario}`);
-    return getDownloadURL(imgRef);
-  }
+  async guardarImagen(imagen: Imagen, carpeta: string) {
+    const storage = getStorage(); // instancia de Firebase Storage
 
-  public async fetchAll() {
-    return new Promise<any>((resolve) => {
-      const imgsRef = dbRef(this.database, 'imagenes');
-      onValue(imgsRef, (snapshot) => {
-        ImagenService.imagenes = [];
-        snapshot.forEach((child) => {
-          const data = child.val();
-          const aux = Imagen.CrearImagen(
-            data.id,
-            data.base64,
-            data.url,
-            data.usuario,
-            data.nombreUsuario,
-            data.fecha,
-            data.tipo,
-            data.votos
-          );
-          ImagenService.imagenes.push(aux);
-        });
+    const path = `${carpeta}/${imagen.id}`;
+    const storageRef = ref(storage, path);
 
-        this.getFeas();
-        this.getLindas();
-        resolve('OK');
-      });
+    const metadata = {
+      contentType: 'image/jpeg',
+      customMetadata: {
+        user: imagen.usuario,
+        userName: imagen.nombreUsuario,
+        date: imagen.fecha,
+        puntaje: imagen.votos.length.toString(),
+      },
+    };
+
+    await uploadString(storageRef, imagen.base64, 'base64', metadata)
+    .then(() =>{
+      console.log('string upload succesfully')
+    })
+    .catch(() => {
+      console.log("Error al subir el archivo")
     });
+    return storageRef; // ya que se usa para getDownloadURL()
   }
 
-  public actualizar(imagen: Imagen): Promise<void> {
-    return update(dbRef(this.database, `imagenes/${imagen.id}`), imagen);
+  descargarImagen(carpeta: string, usuario: string) {
+    return this.storage.ref(`${carpeta}/${usuario}`).getDownloadURL();
   }
 
-  public borrar(id: string): Promise<void> {
-    return remove(dbRef(this.database, `imagenes/${id}`));
+  async actualizarOCrear(imagen: Imagen): Promise<void> {
+    const { base64, ...imagenSinBase64 } = imagen;
+    let imagenesCollection = collection(this.firestore, 'imagenes');
+    const userDocRef = doc(imagenesCollection, imagen.id);
+
+    setDoc(userDocRef, { ...imagenSinBase64 }, { merge: true })
+      .then(() => console.info('Actualización de imagen exitosa'))
+      .catch((error) =>
+        console.error('No se pudo actualizar la imagen', error)
+      );
   }
 
-  public fetchUsuario(id: string) {
-    ImagenService.fotosUsuario = ImagenService.imagenes
-      .filter((img) => img.usuario === id)
-      .sort((a, b) => this.comparadorFechas(a, b));
+  async borrar(id: string): Promise<void> {
+    const docRef = doc(this.firestore, `imagenes/${id}`);
+    await deleteDoc(docRef);
   }
 
-  public getFeas() {
-    ImagenService.fotosFeas = ImagenService.imagenes
-      .filter((img) => img.tipo === TipoImagen.NEGATIVA)
-      .sort((a, b) => this.comparadorFechas(a, b));
+  async fetchAll(): Promise<void> {
+    const imagenesRef = collection(this.firestore, 'imagenes');
+    const snapshot = await getDocs(imagenesRef);
+
+    ImagenService.imagenes = [];
+
+    snapshot.forEach((docSnap) => {
+      const data = docSnap.data();
+      const aux = Imagen.CrearImagen(
+        docSnap.id,
+        data['base64'],
+        data['url'],
+        data['usuario'],
+        data['nombreUsuario'],
+        data['fecha'],
+        data['tipo'],
+        data['votos']
+      );
+      console.log('imagen fetchAll: ' + aux)
+      ImagenService.imagenes.push(aux);
+    });
+
+    this.getFeas();
+    this.getLindas();
   }
 
-  public getLindas() {
-    ImagenService.fotosBonitas = ImagenService.imagenes
-      .filter((img) => img.tipo === TipoImagen.POSITIVA)
-      .sort((a, b) => this.comparadorFechas(a, b));
+  fetchUsuario(id: string) {
+    ImagenService.fotosUsuario =
+      ImagenService.imagenes
+        .filter((img) => img.usuario === id)
+        .sort((a, b) => this.comparadorFechas(a, b)) ?? [];
+  }
+
+  getFeas() {
+    ImagenService.fotosFeas =
+      ImagenService.imagenes
+        .filter((img) => img.tipo === TipoImagen.NEGATIVA)
+        .sort((a, b) => this.comparadorFechas(a, b)) ?? [];
+  }
+
+  getLindas() {
+    ImagenService.fotosBonitas =
+      ImagenService.imagenes
+        .filter((img) => img.tipo === TipoImagen.POSITIVA)
+        .sort((a, b) => this.comparadorFechas(a, b)) ?? [];
   }
 
   async presentToast(message: string) {
@@ -190,10 +181,10 @@ export class ImagenService {
       message,
       duration: 2000,
     });
-    await toast.present();
+    toast.present();
   }
 
-  comparadorFechas(fotoA: Imagen, fotoB: Imagen) {
+  comparadorFechas(fotoA: Imagen, fotoB: Imagen): number {
     return new Date(fotoB.fecha).getTime() - new Date(fotoA.fecha).getTime();
   }
 }
