@@ -1,0 +1,35 @@
+<app-header titulo="BILLETERA VIRTUAL" class="ion-no-margin"></app-header>
+
+<ion-content [fullscreen]="true" class="fondo-claro">
+  <div class="center-content">
+
+    <div class="credito-container" *ngIf="usuario">
+      <span class="credito-label">${{ usuario.credito }}</span>
+    </div>
+
+    <ion-item-divider class="custom-divider-claro"></ion-item-divider>
+
+    <div class="scan-section">
+      <h4 class="scan-title">Presione para escanear</h4>
+      <ion-icon class="scan-icon" name="arrow-down-circle-outline"></ion-icon>
+
+      <ion-button expand="block" class="btn-scan-claro" (click)="presentActionSheet()">
+        <ion-icon slot="icon-only" name="qr-code-sharp"></ion-icon>
+      </ion-button>
+    </div>
+
+  </div>
+</ion-content>
+
+<ion-footer class="fondo-claro">
+  <ion-toolbar class="fondo-claro">
+    <ion-button [disabled]="usuario.credito == 0"
+                class="custom-button-claro"
+                (click)="borrarCreditos()"
+                size="large"
+                expand="block"
+                fill="solid">
+      Limpiar créditos
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -11,9 +11,11 @@ import { TarjetasComponent } from './tarjetas/tarjetas.component';
 // import { VotosPipe } from '../pipes/votos.pipe';
 // import { ChartModule } from 'angular-highcharts';
 
-import { GraficoBarrasComponent } from './widgets/grafico-barras/grafico-barras.component';
-import { GraficoTortaComponent } from './widgets/grafico-torta/grafico-torta.component';
+import { GraficoBarrasLindasComponent } from './widgets/grafico-barras-lindas/grafico-barras-lindas.component';
+import { GraficoTortaLindasComponent } from './widgets/grafico-torta-lindas/grafico-torta-lindas.component';
 import { ChartModule } from 'angular-highcharts';
+import { GraficoTortaFeasComponent } from './widgets/grafico-torta-feas/grafico-torta-feas.component';
+import { GraficoBarrasFeasComponent } from './widgets/grafico-barras-feas/grafico-barras-feas.component';
 
 
 
@@ -23,8 +25,11 @@ import { ChartModule } from 'angular-highcharts';
     TarjetaComponent,
     HeaderComponent,
     TarjetasComponent,
-    GraficoBarrasComponent,
-    GraficoTortaComponent
+    GraficoBarrasLindasComponent,
+    GraficoTortaLindasComponent,
+    GraficoTortaFeasComponent,
+    GraficoBarrasFeasComponent
+
   ],
   imports: [
     CommonModule,
@@ -38,8 +43,10 @@ import { ChartModule } from 'angular-highcharts';
     HeaderComponent,
     TarjetaComponent,
     TarjetasComponent,
-    GraficoBarrasComponent,
-    GraficoTortaComponent
+    GraficoBarrasLindasComponent,
+    GraficoTortaLindasComponent,
+    GraficoTortaFeasComponent,
+    GraficoBarrasFeasComponent
   ]
 })
 export class ComponentsModule { }

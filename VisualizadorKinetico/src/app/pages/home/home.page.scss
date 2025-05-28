@@ -1,0 +1,121 @@
+.login-screen {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+}
+
+.login-button {
+  width: 375px;
+  height: 60px !important;
+  font-size: large;
+  --background: purple;
+}
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 24px 20px;
+  box-sizing: border-box;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 138px;
+}
+
+.footer-wrapper {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.footer-toolbar {
+  background: transparent;
+  --background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+.rol-segment {
+  width: 100%;
+  background: #1e1e2f;
+  border-radius: 16px;
+  --indicator-color: #3880ff;
+}
+
+ion-segment-button {
+  --color-checked: #ffffff;
+  --background-checked: #3880ff;
+  --color: #ccc;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.custom-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #1a1a2e;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 0;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  border-top: 1px solid #2e2e4d;
+}
+
+.footer-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.footer-btn ion-icon {
+  font-size: 24px;
+  margin-bottom: 2px;
+  color: #3880ff;
+}
+
+.custom-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #1a1a2e;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  border-bottom: 1px solid #2e2e4d;
+}
+
+.header-icon {
+  font-size: 26px;
+  color: #3880ff;
+}
+
+.header-title {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.header-placeholder {
+  width: 26px; /* para alinear el ícono visualmente con el título */
+}
+

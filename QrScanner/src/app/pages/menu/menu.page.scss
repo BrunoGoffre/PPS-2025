@@ -1,0 +1,80 @@
+.fondo-claro {
+  background-color: #fdf6ec; /* Beige claro */
+  --ion-background-color: #fdf6ec !important;
+  color: #444;
+}
+
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6vh 4vw;
+}
+
+.credito-container {
+  font-size: 9vh;
+  font-weight: 700;
+  color: #e0c187; /* Dorado claro */
+  background-color: #ffffff;
+  border-radius: 24px;
+  padding: 4vh 6vw;
+  box-shadow: 0 4px 15px rgba(224, 193, 135, 0.3);
+  margin-bottom: 6vh;
+  text-align: center;
+  width: 90%;
+}
+
+.scan-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5vh;
+}
+
+.scan-title {
+  color: #8c7b5c; /* Marrón claro */
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.scan-icon {
+  font-size: 4vh;
+  color: #8c7b5c;
+}
+
+.btn-scan-claro {
+  width: 18vh;
+  height: 18vh;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 2px solid #e0c187;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(224, 193, 135, 0.4);
+}
+
+.btn-scan-claro ion-icon {
+  font-size: 7vh;
+  color: #e0c187;
+}
+
+.custom-button-claro {
+  --background: #ffffff;
+  --color: #8c7b5c;
+  border: 2px solid #e0c187;
+  height: 7.5vh;
+  font-weight: 600;
+  border-radius: 12px;
+  margin: 1.5vh;
+  box-shadow: 0 2px 6px rgba(224, 193, 135, 0.3);
+}
+
+.custom-divider-claro {
+  --background: #e0c187;
+  height: 20px;
+  width: 109%;
+  border-radius: 2px;
+}

@@ -1,0 +1,43 @@
+<!-- <app-header titulo="Inicio"></app-header> -->
+<ion-header class="ion-no-border" translucent >
+  <ion-toolbar>
+    <ion-button class="button-user" expand="block" (click)="presentActionSheet()" fill="solid">
+      Inicio rápido
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="dark" >
+
+  <div id="container">
+    <h1><strong style="font-size: xxx-large;">¡Bienvenido!</strong></h1>
+
+    <ion-img [src]="'../../assets/icon/icon.png'"></ion-img>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmitTemplate()">
+      <ion-item color="dark">
+        <ion-label position="floating" class="custom-label-xl" color="light"><strong>Correo Electronico:</strong></ion-label>
+        <ion-input class="custom-label-xl" formControlName="email" type="text"></ion-input>
+      </ion-item>
+      <ion-note *ngIf="isNotValidField('email')" class="error-msg custom-label-l">
+        {{getErrorMessage('email')}}
+      </ion-note>
+
+      <div class="divider"></div>
+  
+      <ion-item color="dark">
+        <ion-label position="floating" class="custom-label-xl" color="light"><strong>Contraseña:</strong></ion-label>
+        <ion-input class="custom-label-xl" formControlName="pass" type="password"></ion-input>
+      </ion-item>
+      <ion-note *ngIf="isNotValidField('pass')" class="error-msg custom-label-l">
+        {{getErrorMessage('pass')}}
+      </ion-note>
+
+      <div class="divider"></div>
+      
+      <ion-button class="button-login" expand="block" type="submit" [disabled]="loginForm.invalid">
+        Ingresar
+      </ion-button>
+  </form>
+  </div>
+</ion-content>

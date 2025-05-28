@@ -1,0 +1,27 @@
+.img-login{
+    border-radius: 15px;
+}
+
+
+@media screen and (orientation: portrait) {
+    /* Estilos para orientación vertical */
+    .img-login{
+        width: 100vh;
+        height: 70vh;
+    }
+    ion-card{
+        margin-top: 3vh;
+    }
+
+    ion-button{
+        height: 7vh;
+    }
+  }
+  
+  @media screen and (orientation: landscape) {
+    /* Estilos para orientación horizontal */
+    .img-login{
+        width: 777px;
+        height: 73vh;
+    }
+  }

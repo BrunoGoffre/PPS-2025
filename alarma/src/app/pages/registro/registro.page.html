@@ -1,0 +1,79 @@
+<app-header titulo="Crear usuario"></app-header>
+
+<ion-content [fullscreen]="true" class="fondo">
+  <div class="center-content">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmitTemplate()">
+      <ion-item class="fondo">
+        <ion-label position="floating" color="dark"> <strong>Nombre</strong> </ion-label>
+        <ion-input formControlName="nombre" type="text"></ion-input>
+      </ion-item>
+  
+      <ion-note *ngIf="isNotValidField('nombre')" class="error-msg">
+        {{getErrorMessage('nombre')}}
+      </ion-note>
+  
+      <ion-item class="fondo">
+          <ion-label position="floating" color="dark"><strong>Apellido</strong></ion-label>
+          <ion-input formControlName="apellido" type="text"></ion-input>
+      </ion-item>
+      <ion-note *ngIf="isNotValidField('apellido')" class="error-msg">
+        {{getErrorMessage('apellido')}}
+      </ion-note>
+  
+      <ion-item class="fondo">
+        <ion-label position="floating" color="dark"><strong>Ingrese DNI</strong> (sólo números)</ion-label>
+        <ion-input formControlName="dni" type="number"></ion-input>
+      </ion-item>
+      <ion-note *ngIf="isNotValidField('dni')" class="error-msg">
+        {{getErrorMessage('dni')}}
+      </ion-note>
+  
+      <ion-item class="fondo">
+        <ion-label position="floating" color="dark"><strong>Ingrese su domicilio</strong></ion-label>
+        <ion-input formControlName="domicilio" type="text"></ion-input>
+      </ion-item>
+      <ion-note *ngIf="isNotValidField('domicilio')" class="error-msg">
+        {{getErrorMessage('domicilio')}}
+      </ion-note>
+  
+      <ion-item class="fondo">
+        <ion-label position="floating" color="dark"><strong>Ingrese su teléfono</strong></ion-label>
+        <ion-input formControlName="telefono" type="number"></ion-input>
+      </ion-item>
+      <ion-note *ngIf="isNotValidField('telefono')" class="error-msg">
+        {{getErrorMessage('telefono')}}
+      </ion-note>
+  
+      <ion-item class="fondo">
+        <ion-label position="floating" color="dark"><strong>Ingrese email</strong></ion-label>
+        <ion-input formControlName="email" type="text"></ion-input>
+      </ion-item>
+      <ion-note *ngIf="isNotValidField('email')" class="error-msg">
+        {{getErrorMessage('email')}}
+      </ion-note>
+  
+      <ion-item class="fondo">
+        <ion-label position="floating" color="dark"><strong>Password</strong></ion-label>
+        <ion-input formControlName="pass" type="password"></ion-input>
+      </ion-item>
+      <ion-note *ngIf="isNotValidField('pass')" class="error-msg">
+        {{getErrorMessage('pass')}}
+      </ion-note>
+  
+      <ion-item class="fondo">
+        <ion-label position="floating" color="dark"><strong>Confirmar Password</strong></ion-label>
+        <ion-input formControlName="confirmPassowrd" type="password"></ion-input>
+      </ion-item>
+      <ion-note *ngIf="isNotValidField('confirmPassowrd')" class="error-msg">
+        {{getErrorMessage('confirmPassowrd')}}
+      </ion-note>
+      
+      <ion-button size="large" expand="block" color="success" strong="true" type="submit"
+      [disabled]="this.registerForm.invalid">
+      Guardar datos
+    </ion-button>
+  </form>
+  </div>
+
+
+</ion-content>

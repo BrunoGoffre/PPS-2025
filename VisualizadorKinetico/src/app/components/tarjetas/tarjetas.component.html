@@ -1,0 +1,22 @@
+<!-- <ion-chip color="light" mode="ios" outline="true">
+  <ion-label>X : {{ ejeX }}</ion-label>
+</ion-chip>
+
+<ion-chip color="light" mode="ios" outline="true">
+  <ion-label>Z : {{ ejeZ }}</ion-label>
+</ion-chip>
+
+<ion-chip color="light" mode="ios" outline="true">
+  <ion-label>Y : {{ ejeY }}</ion-label>
+</ion-chip> -->
+
+<swiper
+  [slidesPerView]="1"
+  [pagination]="true"
+  (swiper)="onSwiper($event)"
+  class="swiper-container"
+>
+  <ng-template swiperSlide *ngFor="let imagen of imagenes">
+    <app-tarjeta [imagen]="imagen" class="cont"></app-tarjeta>
+  </ng-template>
+</swiper>

@@ -1,0 +1,39 @@
+<div class="custom-header">
+  <h1 class="header-title">Relevamiento Visual</h1>
+</div>
+
+
+<ion-content class="fondo login-screen" fullscreen>
+
+  <div class="login-wrapper">
+    <div class="login-container">
+      <div class="logo-container">
+        <img src="../../../assets/icon/icon.png" alt="Logo" class="logo" />
+      </div>
+
+      <h1 class="login-title">Visualizador kinético</h1>
+
+      <ion-button expand="block" shape="round" color="primary" class="login-button" (click)="presentAlertPrompt()">
+        Iniciar sesión
+      </ion-button>
+    </div>
+
+    <div class="custom-footer">
+      <ion-button fill="clear" class="footer-btn" (click)="iniciarSesion({ detail: { value: 'Admin' } })">
+        <ion-icon name="settings-outline"></ion-icon>
+        <span>Admin</span>
+      </ion-button>
+
+      <ion-button fill="clear" class="footer-btn" (click)="iniciarSesion({ detail: { value: 'Tester' } })">
+        <ion-icon name="flask-outline"></ion-icon>
+        <span>Tester</span>
+      </ion-button>
+
+      <ion-button fill="clear" class="footer-btn" (click)="iniciarSesion({ detail: { value: 'Usuario' } })">
+        <ion-icon name="person-outline"></ion-icon>
+        <span>Usuario</span>
+      </ion-button>
+    </div>
+  </div>
+
+</ion-content>

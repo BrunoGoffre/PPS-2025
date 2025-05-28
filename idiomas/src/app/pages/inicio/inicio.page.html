@@ -1,0 +1,38 @@
+
+<ion-content color="primary">
+
+
+  <ion-grid fixed>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+        <ion-button (click)="togglePopover($event)" expand="block" color="warning">
+          <ion-icon slot="icon-only" name="open"></ion-icon>
+        </ion-button>  
+      </ion-col>
+    </ion-row>
+
+
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-text-center ion-text-center-lg">
+
+        <ion-card color="dark">
+          <ion-card-content class="ion-activatable">
+            <img class="img-login" [src]="login" (click)="promptSignUp()">
+            <ion-ripple-effect type="bounded">
+            </ion-ripple-effect>
+
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+
+
+
+
+</ion-content>

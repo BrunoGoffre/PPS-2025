@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 754 754" width="754" height="754">
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: #00ff00 } 
+	</style>
+	<path id="verde" class="shp0" d="M377.49 754C169.01 754.27 0.27 585.97 0 377.49C-0.27 169.01 168.03 0.27 376.51 0C584.99 -0.27 753.73 168.03 754 376.51C754.27 584.99 585.97 753.73 377.49 754Z" />
+</svg>

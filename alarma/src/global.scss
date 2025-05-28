@@ -1,0 +1,150 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import "@ionic/angular/css/palettes/dark.system.css";
+
+.fondo{
+    // --background:  url("assets/img/alarm.svg") no-repeat center center / cover ; 
+    --background:rgb(18, 58, 85);
+}
+
+.contenido{
+    background: #2f2372 !important;
+}
+
+.center-content{
+    margin-left: auto !important;
+     margin-right: auto !important;
+ }
+
+ .alert-wrapper{
+    background-color: #0054e9 !important; /* Color de fondo de la alerta de advertencia */
+ }
+  
+  .cancel-button {
+    color: rgb(107, 93, 93) !important; /* Color del botón de cancelar */
+    font-size: x-large !important;
+    font-family: monospace;
+    font-weight: bolder !important;
+  }
+
+  .alert-title{
+    color: rgb(107, 93, 93)!important; /* Color del botón de cancelar */
+    font-size: xx-large !important;
+    font-family: monospace;
+    font-weight: bolder;
+  }
+
+  .alert-message{
+    font-size: large !important;
+    font-family: monospace;
+    font-weight: bolder !important;
+    color: white !important; /* Color del botón de cancelar */
+  }
+
+  .custom-loading .loading-wrapper {
+  background: rgba(30, 30, 30, 0.95);
+  color: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  font-size: 1.15rem;
+  font-weight: 500;
+  animation: popin 0.3s ease-in-out;
+  backdrop-filter: blur(8px);
+}
+
+@keyframes popin {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.fancy-alert {
+  --background: linear-gradient(135deg, #ff9f9fc7, #f83535);
+  --backdrop-opacity: 0.8;
+  --color: #212121;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+
+  .alert-title {
+    color: #d32f2f;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .alert-message {
+    font-size: 1.1rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1.5rem; // espacio extra antes del botón
+    padding: 0 12px;
+  }
+
+  .alert-sub-title {
+    color: #7b1fa2;
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.fancy-cancel-button {
+  --background: #c62828;
+  --color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 12px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(198, 40, 40, 0.5);
+  transition: all 0.2s ease-in-out;
+}
+
+.fancy-cancel-button:hover {
+  filter: brightness(1.15);
+  transform: scale(1.04);
+}

@@ -1,0 +1,81 @@
+.slide-image {
+  text-align: center;
+  border-radius: 15px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-height: 90px !important;
+  position: relative;
+  width: 100%;
+  height: 80px;
+  object-fit: contain;
+}
+
+.custom-grid-colores {
+  margin-top: 30%;
+}
+.custom-grid-numeros {
+  margin-top: 10%;
+}
+.custom-grid-animales {
+  margin-top: 20%;
+}
+
+/* Ajustes para orientación horizontal */
+@media screen and (orientation: landscape) {
+  ion-card {
+    width: 80%;
+    height: 80%;
+  }
+
+  .slide-image {
+    margin-top: 0.1vh;
+    height: 100px;
+  }
+
+  ion-col {
+    margin-left: -10px;
+    margin-bottom: -10px;
+    margin-right: -10px;
+  }
+
+  .custom-grid-numeros {
+    margin-top: -12%;
+    padding: 119px;
+  }
+
+  .custom-grid-colores {
+    margin-top: 7%;
+    margin-left: 5%;
+    ion-col {
+      margin-bottom: -15px;
+      margin-left: -45px;
+      margin-right: -45px;
+    }
+  }
+
+  .custom-card-colores {
+    height: 155px;
+    width: 132px;
+  }
+
+  .custom-grid-animales{
+    margin-top: 7%;
+  }
+}
+
+.custom-card {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-card-colores {
+  height: 170px;
+  width: 130px;
+}
+
+//   @media screen and (orientation: landscape) {
+//     /* Estilos para orientación horizontal */
+//   }

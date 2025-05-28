@@ -1,0 +1,48 @@
+<ion-content color="primary">
+
+  <div *ngIf="type == 'numeros'">
+    <ion-grid class="custom-grid-numeros">
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="4.2" size-sm="3" size-md="2.4" *ngFor="let value of data">
+          <ion-card color="warning" class="custom-card">
+            <ion-card-content class="ion-activatable" (click)="play(value.nombre + '_' + opcion.idioma)">
+              <img [src]="value.img" class="slide-image" />
+              <ion-ripple-effect></ion-ripple-effect>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div *ngIf="type == 'colores'">
+    <ion-grid class="custom-grid-colores">
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="4.2" size-sm="4" size-md="3" *ngFor="let value of data" class="custom-ion-col">
+          <ion-card color="warning" class="custom-card-colores">
+            <ion-card-content class="ion-activatable" (click)="play(value.nombre + '_' + opcion.idioma)">
+              <img [src]="value.img" class="slide-image" style="max-height: 120px !important; height: 120px;"/>
+              <ion-ripple-effect></ion-ripple-effect>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div *ngIf="type == 'animales'">
+    <ion-grid class="custom-grid-animales">
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="4.2" size-sm="3" size-md="2.4" *ngFor="let value of data">
+          <ion-card color="warning" class="custom-card-colores">
+            <ion-card-content class="ion-activatable" (click)="play(value.nombre + '_' + opcion.idioma)">
+              <img [src]="value.img" class="slide-image" style="max-height: 120px !important; height: 120px;" />
+              <ion-ripple-effect></ion-ripple-effect>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-content>

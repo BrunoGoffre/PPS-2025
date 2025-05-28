@@ -1,0 +1,31 @@
+/* TARJETAS COMPONENT */
+.swiper-container {
+  width: 425px;
+  height: auto;
+  padding-bottom: 24px;
+}
+
+.tarjeta-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* TARJETA COMPONENT */
+.tarjeta-card {
+  width: 100%;
+  max-width: 90vw;
+  margin: 0 auto;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  background: #fdfdfd;
+}
+
+.imagen {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+}

@@ -1,0 +1,48 @@
+<app-header titulo="Menú principal"></app-header>
+<ion-content [fullscreen]="true" class="fondo">
+  <h1 class="titulo-principal">ALARMA DE ROBO</h1>
+  <div class="center-content ion-text-center">
+    <ion-button
+  *ngIf="estado === 1"
+  (click)="desactivarAlarma()"
+  expand="block"
+  fill="solid"
+  class="boton-epico"
+  [disabled]="!passwordForm.valid"
+>
+  <ion-img src="../../../assets/img/alarm-on.png" alt="Alarma Activada"></ion-img>
+</ion-button>
+
+<ion-button
+  *ngIf="estado === 0"
+  (click)="activarAlarma()"
+  expand="block"
+  fill="solid"
+  class="boton-epico"
+  [disabled]="deshabilitarBoton"
+>
+  <ion-img src="../../../assets/img/alarm-off.png" alt="Alarma Desactivada"></ion-img>
+</ion-button>
+
+
+
+
+    <form [formGroup]="passwordForm" (ngSubmit)="desactivarAlarma()">
+      <ion-item *ngIf="estado == 1" class="fondo">
+        <ion-label class="custom-label" position="floating" color="white">Ingrese su contraseña para
+          desactivar</ion-label>
+        <ion-input formControlName="password" type="password"></ion-input>
+      </ion-item>
+      <ion-note *ngIf="isSubmitted && errorControl['password'].errors?.['required']" class="error-msg custom-label-sm">
+        La contraseña es requerida.
+      </ion-note>
+      <ion-note *ngIf="isSubmitted && errorControl['password'].errors?.['minlength']" class="error-msg custom-label-sm">
+        Al menos 6 caracteres
+      </ion-note>
+    </form>
+
+  </div>
+
+
+
+</ion-content>
