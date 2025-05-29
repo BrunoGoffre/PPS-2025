@@ -22,12 +22,12 @@ export class MenuPage implements OnInit {
     {
       nombre: 'BONITAS',
       ruta: '/bonitas',
-      src: '/assets/img/bonito.png',
+      src: '/assets/img/bonito.jpg',
     },
     {
       nombre: 'FEAS',
       ruta: '/feas',
-      src: '/assets/img/feo.png',
+      src: '/assets/img/feo.jpg',
     }
   ];
 

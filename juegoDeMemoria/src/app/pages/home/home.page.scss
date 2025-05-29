@@ -1,0 +1,103 @@
+.fondo-oscuro {
+  --background: linear-gradient(145deg, #0b0f13, #1a1f2b);  
+  color: #f5f5f5;
+}
+
+.titulo-principal {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ff4081;
+  margin-top: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  text-shadow: 0 0 8px #5e286988;
+}
+
+.linea-divisoria {
+  width: 100%;
+  margin: 0 auto -40px auto;
+  border: none;
+  border-top: 2px solid #ff4081;
+  box-shadow: 0 0 8px #5e286980;
+}
+
+.logo-img {
+  display: block;
+  height: 43vh; /* Ocupa la mitad de la pantalla */
+  object-fit: contain;
+  margin: -20px auto;
+  padding: 10px 0;
+}
+
+.contenido-login {
+  padding: 0 20px;
+  background-color: transparent;
+}
+
+.input-item {
+  background-color: transparent;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.custom-label {
+  color: #ff4081;
+  font-size: 1.5rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+ion-input {
+  color: #ffffff;
+  font-size: 1.5rem;
+}
+
+.error-msg {
+  color: #ff4081;
+  font-size: 1rem;
+  margin-left: 8px;
+}
+
+.btn-ingresar {
+  margin-top: 20px;
+  background-color: #ff4081;
+  color: white;
+  font-weight: bold;
+  font-family: 'Segoe UI', sans-serif;
+  border-radius: 12px;
+  height: 3.5rem;
+  font-size: large;
+  --background: #ff4081;
+}
+
+.selectores-usuarios {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap-reverse;
+  margin: 30px 20px 0 20px;
+  gap: 15px;
+}
+
+.selector-card {
+  flex: 1 1 30%;
+  background-color: #2a2a2a;
+  padding: 15px;
+  text-align: center;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  color: #e0e0e0;
+  font-weight: 500;
+  font-family: 'Segoe UI', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 5px #00000088;
+}
+
+.selector-card:hover {
+  background-color: #333;
+}
+
+.selector-card.activo {
+  border: 2px solid #ff4081;
+  box-shadow: 0 0 15px #00ffd1;
+  background-color: #ff4081;
+}

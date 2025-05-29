@@ -1,0 +1,103 @@
+<ion-header class="ion-no-border" translucent>
+  <ion-toolbar>
+
+    <ion-buttons class="btn-back" slot="start">
+      <ion-back-button defaultHref="/home" icon="log-out-outline">
+      </ion-back-button>
+    </ion-buttons>
+
+    <ion-title style="margin-left: 6rem;" color="dark" text-capitalize>A JUGAR!</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen style="--backgroud:blue">
+
+  <!-- Pantalla de selección de nivel -->
+  <div *ngIf="estado === 'seleccion'" class="ion-padding">
+    <h2 class="ion-text-center titulo">Selecciona la dificultad</h2>
+
+    <div class="nivel-btns">
+      <ion-button expand="block" class="btn-nivel facil" [class.selected]="nivel === 'facil'"
+        (click)="seleccionarNivel('facil')">
+        🐴 Fácil
+      </ion-button>
+
+      <ion-button expand="block" class="btn-nivel medio" [class.selected]="nivel === 'medio'"
+        (click)="seleccionarNivel('medio')">
+        🔧 Medio
+      </ion-button>
+
+      <ion-button expand="block" class="btn-nivel dificil" [class.selected]="nivel === 'dificil'"
+        (click)="seleccionarNivel('dificil')">
+        🍉 Difícil
+      </ion-button>
+    </div>
+
+    <ion-button expand="block" size="large" class="btn-jugar" (click)="iniciarJuego()" [disabled]="!nivel">
+      🎮 Iniciar Juego
+    </ion-button>
+
+    <ion-button expand="block" size="large" fill="outline" class="btn-puntajes" (click)="verPuntajes()"
+      [disabled]="!nivel">
+      📊 Ver Puntajes
+    </ion-button>
+  </div>
+
+  <!-- Pantalla del juego -->
+  <div *ngIf="estado === 'juego'" class="ion-padding">
+    <div class="timer">⏱ {{ segundos }} segundos</div>
+
+    <div [class.gridDificil]="nivel === 'dificil'" [class.gridMedio]="nivel === 'medio'"
+      [class.gridFacil]="nivel === 'facil'">
+      <div class="card" [class.cardDificil]="nivel === 'dificil'" [class.cardMedio]="nivel === 'medio'"
+        [class.cardFacil]="nivel === 'facil'" *ngFor="let carta of cartas; index as i"
+        [class.flipped]="carta.flipped || carta.matched" (click)="voltearCarta(i)">
+        <div class="card-inner">
+          <div class="card-front"></div>
+          <div class="card-back" [style.backgroundImage]="'url(assets/img/' + carta.img + ')'"></div>
+        </div>
+      </div>
+    </div>
+
+    <ion-button *ngIf="won" expand="block" size="large"  class="btn-reiniciar"
+      (click)="reiniciarJuego()">
+      🔁 Jugar Otra Vez
+    </ion-button>
+    <ion-button *ngIf="!won" expand="block" size="large"  class="btn-reiniciar"
+      (click)="reiniciarJuego()">
+      🔁 Rendirse
+    </ion-button>
+  </div>
+
+  <!-- Pantalla de puntajes -->
+  <div *ngIf="estado === 'puntajes'" class="contaienr-puntajes">
+    <div style="width: 100%; display: flex; justify-content: center;">
+      <h1><img src="../../../assets/copa.png" style="width: 184px;"></h1>
+    </div>
+    <div>
+      <h2 class="ion-text-center titulo"> Mejores 5 - {{ nivel | titlecase }}</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="tabla-puntajes">
+      <div class="fila-puntaje encabezado">
+        <div>#</div>
+        <div>Jugador</div>
+        <div>Tiempo</div>
+        <div>Fecha</div>
+      </div>
+
+      <div class="fila-puntaje" *ngFor="let p of top5; index as i">
+        <div class="posicion">{{ i + 1 }}º</div>
+        <div class="jugador">{{ p.nombre }}</div>
+        <div *ngIf="p.tiempo != '----'" class="tiempo">{{ p.tiempo }}s</div>
+        <div *ngIf="p.tiempo == '----'" class="tiempo">{{ p.tiempo }}</div>
+        <div *ngIf="p.fecha != '--------'" class="fecha">{{ p.fecha?.toDate() | date:'shortDate' }}</div>
+      </div>
+    </div>
+
+    <ion-button expand="block" size="large" class="btn-volver-puntajes" (click)="reiniciarJuego()">
+      ⬅️ Volver
+    </ion-button>
+  </div>
+</ion-content>

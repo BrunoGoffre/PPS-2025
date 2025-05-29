@@ -1,0 +1,256 @@
+:host {
+  display: block;
+  height: 100%;
+  --ion-background-color: linear-gradient(135deg, #1a1a1a, #222);
+  background: linear-gradient(135deg, #1a1a1a, #222);
+  color: #ffffff;
+  font-family: "Segoe UI", sans-serif;
+}
+
+ion-header {
+  --background: #0f0f0f;
+  --color: #00ffd1;
+  box-shadow: 0 2px 4px rgba(0, 255, 209, 0.3);
+}
+
+ion-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.titulo {
+  font-size: 2.3rem;
+  color: #00ffd1;
+}
+
+.timer {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #00ffd1;
+  font-weight: bold;
+}
+
+.gridDificil {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 14px;
+  padding: 10px;
+}
+.gridMedio {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 9px;
+  padding: 27px;
+}
+.gridFacil {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 17px;
+  padding: 19px;
+}
+
+.cardDificil {
+  width: 100%;
+  padding-top: 150px;
+  position: relative;
+  perspective: 800px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 255, 209, 0.3);
+  cursor: pointer;
+}
+
+.cardMedio {
+  width: 100%;
+  padding-top: 121px;
+  position: relative;
+  perspective: 800px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 255, 209, 0.3);
+  cursor: pointer;
+}
+
+.cardFacil {
+  width: 100%;
+  padding-top: 207px;
+  position: relative;
+  perspective: 800px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 255, 209, 0.3);
+  cursor: pointer;
+}
+
+.card-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  backface-visibility: hidden;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #00ffd1;
+}
+
+.card-front {
+  background: linear-gradient(145deg, #2e2e2e, #3a3a3a);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  background-color: #121212;
+}
+
+ion-button {
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-top: 1rem;
+  border-radius: 12px;
+}
+
+.btn-jugar {
+  --background: linear-gradient(45deg, #ff4081, #ff80ab);
+  --color: #000;
+  margin-top: 10%;
+}
+
+.btn-puntajes {
+  --color: #00ffd1;
+  border: 2px solid #00ffd1;
+}
+
+.btn-reiniciar {
+  --background: linear-gradient(45deg, #ff4081, #ff80ab);
+  --color: #000;
+}
+
+.btn-volver-puntajes {
+  --background: linear-gradient(45deg, #ff4081, #ff80ab);
+  --color: #000;
+  width: 100%;
+}
+.container {
+  margin-top: 30%;
+}
+
+.nivel-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.contaienr-puntajes {
+  display: flex;
+  align-content: space-between;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 90%;
+  padding: 20px;
+}
+
+.btn-nivel {
+  --border-radius: 12px;
+  --box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.5);
+  font-size: 2.3rem;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+  height: 150px;
+}
+
+.btn-nivel.facil {
+  --background: linear-gradient(45deg, #473030, #1add17);
+  --color: #fff;
+}
+
+.btn-nivel.medio {
+  --background: linear-gradient(45deg, #473030, #1726dd);
+  --color: #fff;
+}
+
+.btn-nivel.dificil {
+  --background: linear-gradient(45deg, #473030, #dd3517);
+  --color: #fff;
+}
+
+.btn-nivel.selected {
+  border: 3px solid #ffffffa6;
+  transform: scale(1.05);
+}
+
+.tabla-puntajes {
+  width: 100%;
+  background: #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 255, 209, 0.2);
+  margin-top: 1rem;
+}
+
+.fila-puntaje {
+  display: grid;
+  grid-template-columns: 40px 1fr 80px 100px;
+  padding: 12px;
+  align-items: center;
+  border-bottom: 1px solid #333;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #e0e0e0;
+}
+
+.fila-puntaje.encabezado {
+  background: #00ffd1;
+  color: #000;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.fila-puntaje:last-child {
+  border-bottom: none;
+}
+
+.posicion {
+  font-size: 1.5rem;
+}
+
+.jugador {
+  text-transform: capitalize;
+}
+
+.tiempo {
+  color: #00e676;
+  font-weight: bold;
+}
+
+.fecha {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.divider {
+  background-color: #00ffd1;
+  height: 4px;
+  width: 100%;
+  border-radius: 2px;
+}
+
+.tituloIcono{
+  font-size: 91px;
+}
+

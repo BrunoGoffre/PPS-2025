@@ -1,7 +1,7 @@
 
 export class Usuario
 {
-    id: string;
+     id: string;
     nombre: string;
     dni: string;
     domicilio: string;
@@ -10,7 +10,7 @@ export class Usuario
     pass: string;
     rol: string;
     credito: number;
-    codigos: string[];    
+    codigos: string[];
 
     public Usuario()
     {

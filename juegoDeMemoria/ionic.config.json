@@ -1,0 +1,7 @@
+{
+  "name": "Memotest",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

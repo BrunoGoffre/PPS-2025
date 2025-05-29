@@ -1,7 +1,0 @@
-{
-  "name": "AulaChat",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
