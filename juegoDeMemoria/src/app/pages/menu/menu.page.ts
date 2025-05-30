@@ -63,7 +63,8 @@ export class MenuPage implements OnInit {
   constructor(
     private dataService: DataService,
     private toastCtrl: ToastController,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {}
@@ -98,7 +99,6 @@ export class MenuPage implements OnInit {
     return array.sort(() => Math.random() - 0.5);
   }
 
-  
   async voltearCarta(index: number) {
     if (
       this.bloqueo ||
@@ -126,7 +126,7 @@ export class MenuPage implements OnInit {
           this.won = true;
           clearInterval(this.timer);
           await this.guardarPuntaje();
-          this.mostrarToast(`🎉 Juego terminado en ${this.segundos} segundos`);
+          this.presentAlert(`Juego terminado en ${this.segundos} segundos`);
         }
       } else {
         setTimeout(() => {
@@ -152,7 +152,7 @@ export class MenuPage implements OnInit {
 
   async verPuntajes() {
     if (!this.nivel) {
-      this.mostrarToast('Selecciona un nivel');
+      this.presentAlert('Selecciona un nivel');
       return;
     }
     await this.cargarTop5();
@@ -182,15 +182,15 @@ export class MenuPage implements OnInit {
         };
       })
     );
-    if (this.top5.length < 5){
+    if (this.top5.length < 5) {
       let vacio = {
-        nombre:'---------',
-        tiempo:'----',
-        fecha:'--------',
-      }
+        nombre: '---------',
+        tiempo: '----',
+        fecha: '--------',
+      };
       const faltan = 5 - this.top5.length;
       for (let index = 1; index <= faltan; index++) {
-        this.top5.push(vacio)       
+        this.top5.push(vacio);
       }
     }
   }
@@ -207,16 +207,6 @@ export class MenuPage implements OnInit {
     this.won = false;
   }
 
-  async mostrarToast(mensaje: string) {
-    const toast = await this.toastCtrl.create({
-      message: mensaje,
-      duration: 2500,
-      position: 'top',
-      color: 'success',
-    });
-    toast.present();
-  }
-
   async presentLoading(message) {
     const loading = await this.loadingController.create({
       message,
@@ -228,4 +218,36 @@ export class MenuPage implements OnInit {
   stopLoader() {
     this.loadingController.dismiss();
   }
+
+  convertirAArgentina(fecha: Date): string {
+    // UTC-3 = -180 minutos
+    const argDate = new Date(fecha.getTime() - 3 * 60 * 60 * 1000);
+    return argDate.toLocaleString('es-AR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+  }
+
+  async presentAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: '🎉 Felicitaciones 🎉',
+      message,
+      mode: 'ios',
+      cssClass: 'fancy-alert',
+      backdropDismiss: false, // fuerza al usuario a cerrar con botón
+      buttons: [
+        {
+          text: 'Cerrar',
+          role: 'cancel',
+          cssClass: 'fancy-cancel-button',
+          handler: () => {
+            console.log('Alerta cerrada');
+          },
+        },
+      ],
+    });
+    alert.present();
+  }
+
 }

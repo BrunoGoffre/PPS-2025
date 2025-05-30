@@ -92,7 +92,7 @@
         <div class="jugador">{{ p.nombre }}</div>
         <div *ngIf="p.tiempo != '----'" class="tiempo">{{ p.tiempo }}s</div>
         <div *ngIf="p.tiempo == '----'" class="tiempo">{{ p.tiempo }}</div>
-        <div *ngIf="p.fecha != '--------'" class="fecha">{{ p.fecha?.toDate() | date:'shortDate' }}</div>
+        <div *ngIf="p.fecha != '--------'" class="fecha">{{ convertirAArgentina(p.fecha.toDate()) }}</div>
       </div>
     </div>
 
